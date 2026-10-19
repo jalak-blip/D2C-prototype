@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>indē wild x Odoo ERP v20 - Operations Portal</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cream: '#FAF6F0',
+                        terracotta: '#D97757',
+                        terracottaHover: '#C06344',
+                        burgundy: '#4A0E17',
+                        burgundySoft: '#6B1D28',
+                        gold: '#D4AF37',
+                        goldLight: '#F5E8C7',
+                        sand: '#EFE7DC',
+                        charcoal: '#2C2A29'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        serif: ['Playfair Display', 'Georgia', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts for typography elegance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #FAF6F0;
+            color: #2C2A29;
+            font-family: 'Inter', sans-serif;
+        }
+        .serif-title {
+            font-family: 'Playfair Display', serif;
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FAF6F0;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #D97757;
+            border-radius: 4px;
+        }
+        .badge-pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: .4; }
+        }
+        .flow-step-active {
+            box-shadow: 0 0 15px rgba(217, 119, 87, 0.4);
+            border-color: #D97757 !important;
+            background-color: #FAF6F0 !important;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-terracotta selection:text-white">
+
+    <!-- TOP ANNOUNCEMENT / BRAND BAR -->
+    <header class="bg-burgundy text-cream shadow-md sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-wrap items-center justify-between gap-4">
+            <!-- Brand & Portal Name -->
+            <div class="flex items-center space-x-3">
+                <div class="bg-cream text-burgundy font-serif px-3 py-1 rounded-md text-xl font-bold tracking-wider shadow-inner">
+                    indē wild
+                </div>
+                <span class="text-gold font-light hidden sm:inline">|</span>
+                <div class="text-xs sm:text-sm font-medium tracking-wide">
+                    <span class="text-gold font-semibold">Odoo ERP v20</span> Operations Architecture Portal
+                </div>
+            </div>
+
+            <!-- Header Controls & Live Clock -->
+            <div class="flex items-center space-x-4 text-xs sm:text-sm">
+                <div class="flex items-center space-x-2 bg-burgundySoft/80 px-3 py-1.5 rounded-full border border-gold/30">
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 badge-pulse"></span>
+                    <span class="text-cream/90 font-medium">Live Odoo Sync</span>
+                </div>
+                <div class="hidden md:block text-cream/70 font-mono text-xs" id="live-clock">
+                    --:--:-- IST
+                </div>
+                <button onclick="openShareModal()" class="bg-gold hover:bg-gold/90 text-burgundy font-semibold px-3.5 py-1.5 rounded-lg transition-all duration-200 text-xs flex items-center shadow-sm">
+                    <svg class="w-3.5 h-3.5 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path>
+                    </svg>
+                    Pitch Summary
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN BODY CONTENT -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 w-full flex-grow">
+
+        <!-- HERO INTRO BANNER -->
+        <div class="bg-gradient-to-r from-sand via-cream to-sand border border-terracotta/20 rounded-2xl p-6 mb-6 shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+            <div>
+                <span class="text-terracotta text-xs font-bold uppercase tracking-widest block mb-1">Ayurvedicistry Meets Modern Logistics</span>
+                <h1 class="text-2xl md:text-3xl font-bold text-burgundy serif-title">
+                    Unified Operations Strategy for indē wild
+                </h1>
+                <p class="text-sm text-charcoal/80 mt-1 max-w-3xl">
+                    Centralizing multi-channel sales (Shopify, Nykaa, Blinkit), batch-level FEFO expiry tracking for active botanicals, and automated 3PL fulfillment across India, US, and UK via <b>Odoo 18 / v20 ERP</b>.
+                </p>
+            </div>
+            <div class="bg-white/80 p-3 rounded-xl border border-sand shadow-inner text-center min-w-[160px] self-stretch md:self-auto flex flex-col justify-center">
+                <span class="text-xs text-charcoal/60 font-medium">System Health</span>
+                <span class="text-emerald-600 font-bold text-base flex items-center justify-center gap-1 mt-0.5">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                    100% Operational
+                </span>
+                <span class="text-[10px] text-charcoal/50 mt-1">Multi-Warehouse API Connected</span>
+            </div>
+        </div>
+
+        <!-- METRICS EXECUTIVE BAR -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 mb-6">
+            <!-- Metric 1 -->
+            <div class="bg-white rounded-xl p-4 border border-sand shadow-sm hover:border-terracotta/40 transition-all">
+                <div class="text-xs text-charcoal/60 font-medium uppercase tracking-wider">Global Inventory</div>
+                <div class="text-xl md:text-2xl font-bold text-burgundy mt-1" id="metric-inventory">148,250 <span class="text-xs text-emerald-600 font-normal">+12%</span></div>
+                <div class="text-[11px] text-charcoal/50 mt-1">Across 4 Fulfillment Hubs</div>
+            </div>
+            <!-- Metric 2 -->
+            <div class="bg-white rounded-xl p-4 border border-sand shadow-sm hover:border-terracotta/40 transition-all">
+                <div class="text-xs text-charcoal/60 font-medium uppercase tracking-wider">Active Production Batches</div>
+                <div class="text-xl md:text-2xl font-bold text-burgundy mt-1">42 <span class="text-xs text-amber-600 font-normal font-semibold">3 FEFO Priority</span></div>
+                <div class="text-[11px] text-charcoal/50 mt-1">Botanicals & Serums</div>
+            </div>
+            <!-- Metric 3 -->
+            <div class="bg-white rounded-xl p-4 border border-sand shadow-sm hover:border-terracotta/40 transition-all">
+                <div class="text-xs text-charcoal/60 font-medium uppercase tracking-wider">Daily Orders Processed</div>
+                <div class="text-xl md:text-2xl font-bold text-burgundy mt-1" id="metric-orders">3,890</div>
+                <div class="text-[11px] text-charcoal/50 mt-1">D2C + Quick-Commerce</div>
+            </div>
+            <!-- Metric 4 -->
+            <div class="bg-white rounded-xl p-4 border border-sand shadow-sm hover:border-terracotta/40 transition-all">
+                <div class="text-xs text-charcoal/60 font-medium uppercase tracking-wider">On-Time Dispatch SLA</div>
+                <div class="text-xl md:text-2xl font-bold text-emerald-600 mt-1">99.4%</div>
+                <div class="text-[11px] text-charcoal/50 mt-1">Avg 1.8 Hours Order-to-Ship</div>
+            </div>
+            <!-- Metric 5 -->
+            <div class="bg-white rounded-xl p-4 border border-sand shadow-sm col-span-2 sm:col-span-1 hover:border-terracotta/40 transition-all">
+                <div class="text-xs text-charcoal/60 font-medium uppercase tracking-wider">Freshness Index</div>
+                <div class="text-xl md:text-2xl font-bold text-terracotta mt-1">98.2%</div>
+                <div class="text-[11px] text-charcoal/50 mt-1">Zero Near-Expiry Waste</div>
+            </div>
+        </div>
+
+        <!-- NAVIGATION TABS HEADER -->
+        <div class="border-b border-sand mb-6 flex space-x-2 sm:space-x-4 overflow-x-auto pb-1">
+            <button onclick="switchTab('routing')" id="tab-btn-routing" class="tab-btn px-4 py-2.5 rounded-t-xl font-medium text-sm transition-all flex items-center space-x-2 whitespace-nowrap bg-burgundy text-cream border-b-2 border-terracotta shadow-sm">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                <span>1. Omnichannel Order Engine</span>
+            </button>
+            <button onclick="switchTab('batch')" id="tab-btn-batch" class="tab-btn px-4 py-2.5 rounded-t-xl font-medium text-sm transition-all flex items-center space-x-2 whitespace-nowrap bg-white/60 text-charcoal/70 hover:bg-white border-b-2 border-transparent">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <span>2. Ayurvedic Batch & FEFO Matrix</span>
+            </button>
+            <button onclick="switchTab('architecture')" id="tab-btn-architecture" class="tab-btn px-4 py-2.5 rounded-t-xl font-medium text-sm transition-all flex items-center space-x-2 whitespace-nowrap bg-white/60 text-charcoal/70 hover:bg-white border-b-2 border-transparent">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                <span>3. Odoo Module Flow Explorer</span>
+            </button>
+            <button onclick="switchTab('roi')" id="tab-btn-roi" class="tab-btn px-4 py-2.5 rounded-t-xl font-medium text-sm transition-all flex items-center space-x-2 whitespace-nowrap bg-white/60 text-charcoal/70 hover:bg-white border-b-2 border-transparent">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                <span>4. Executive ROI Calculator</span>
+            </button>
+        </div>
+
+        <!-- TAB CONTENT 1: OMNICHANNEL LIVE ORDER ROUTING SIMULATOR -->
+        <div id="tab-routing" class="tab-content space-y-6">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Simulator Control Panel -->
+                <div class="bg-white rounded-2xl p-6 border border-sand shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <h2 class="text-lg font-bold text-burgundy serif-title">Simulate Live Channel Order</h2>
+                            <span class="bg-terracotta/10 text-terracotta text-xs font-semibold px-2.5 py-1 rounded-full">Interactive Demo</span>
+                        </div>
+                        <p class="text-xs text-charcoal/70 mb-5 leading-relaxed">
+                            Test how Odoo automatically intercepts orders from indē wild’s sales channels, runs stock availability checks, applies FEFO batch allocation, and routes to optimal warehouses.
+                        </p>
+
+                        <!-- Order Generator Form -->
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-charcoal/80 mb-1">Select Sales Channel</label>
+                                <select id="sim-channel" class="w-full bg-cream border border-sand text-charcoal text-sm rounded-lg p-2.5 focus:ring-terracotta focus:border-terracotta">
+                                    <option value="Shopify D2C">Shopify (indewild.com)</option>
+                                    <option value="Blinkit">Blinkit (Quick-Commerce 10m)</option>
+                                    <option value="Nykaa">Nykaa Beauty Marketplace</option>
+                                    <option value="Amazon Global">Amazon Global Store</option>
+                                    <option value="Retail Flagship">Delhi Retail Flagship</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-semibold text-charcoal/80 mb-1">Select Hero SKU</label>
+                                <select id="sim-product" class="w-full bg-cream border border-sand text-charcoal text-sm rounded-lg p-2.5 focus:ring-terracotta focus:border-terracotta">
+                                    <option value="AM Sunrise Serum (50ml)">AM Sunrise Serum (50ml) - Vitamin C & Saffron</option>
+                                    <option value="Champi Hair Oil (100ml)">Champi Hair Oil (100ml) - 21 Herb Ayurvedic Blend</option>
+                                    <option value="PM Sunset Restore Night Serum">PM Sunset Restore Night Serum (Bakuchiol)</option>
+                                    <option value="Dewy Lip Treatment (12ml)">Dewy Lip Treatment (12ml) - Lotus Extract</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-semibold text-charcoal/80 mb-1">Quantity (Units)</label>
+                                <input type="number" id="sim-qty" value="2" min="1" max="50" class="w-full bg-cream border border-sand text-charcoal text-sm rounded-lg p-2.5 focus:ring-terracotta focus:border-terracotta">
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-semibold text-charcoal/80 mb-1">Destination Region</label>
+                                <select id="sim-region" class="w-full bg-cream border border-sand text-charcoal text-sm rounded-lg p-2.5 focus:ring-terracotta focus:border-terracotta">
+                                    <option value="Mumbai Metro">Mumbai / West Region</option>
+                                    <option value="NCR Region">Delhi NCR / North Region</option>
+                                    <option value="Bengaluru South">Bengaluru / South Region</option>
+                                    <option value="London UK Hub">London Hub (UK D2C)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-6">
+                        <button onclick="runOrderSimulation()" class="w-full bg-terracotta hover:bg-terracottaHover text-white font-semibold py-3 px-4 rounded-xl shadow-md transition-all text-sm flex items-center justify-center space-x-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <span>Trigger Odoo Workflow</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Workflow Visualizer & Live Activity Stream -->
+                <div class="lg:col-span-2 space-y-6">
+                    <!-- Workflow Pipeline Status -->
+                    <div class="bg-white rounded-2xl p-6 border border-sand shadow-sm">
+                        <h3 class="text-sm font-bold text-burgundy mb-4 uppercase tracking-wider">Odoo Automated Processing Pipeline</h3>
+                        
+                        <div class="grid grid-cols-2 sm:grid-cols-5 gap-3 text-center text-xs" id="workflow-pipeline">
+                            <div id="step-1" class="p-3 rounded-xl border border-sand bg-cream/50 transition-all duration-300">
+                                <div class="font-bold text-charcoal mb-1">1. API Ingest</div>
+                                <div class="text-[10px] text-charcoal/60">Webhook Capture</div>
+                            </div>
+                            <div id="step-2" class="p-3 rounded-xl border border-sand bg-cream/50 transition-all duration-300">
+                                <div class="font-bold text-charcoal mb-1">2. Inventory Sync</div>
+                                <div class="text-[10px] text-charcoal/60">Multi-wh Lock</div>
+                            </div>
+                            <div id="step-3" class="p-3 rounded-xl border border-sand bg-cream/50 transition-all duration-300">
+                                <div class="font-bold text-charcoal mb-1">3. FEFO Pick</div>
+                                <div class="text-[10px] text-charcoal/60">Batch Lot Tagged</div>
+                            </div>
+                            <div id="step-4" class="p-3 rounded-xl border border-sand bg-cream/50 transition-all duration-300">
+                                <div class="font-bold text-charcoal mb-1">4. Dispatch SLA</div>
+                                <div class="text-[10px] text-charcoal/60">3PL Airway Bill</div>
+                            </div>
+                            <div id="step-5" class="p-3 rounded-xl border border-sand bg-cream/50 transition-all duration-300 col-span-2 sm:col-span-1">
+                                <div class="font-bold text-charcoal mb-1">5. Delivered</div>
+                                <div class="text-[10px] text-charcoal/60">Ledger Posting</div>
+                            </div>
+                        </div>
+
+                        <!-- Realtime Terminal Log -->
+                        <div class="mt-4 bg-charcoal text-emerald-400 p-3.5 rounded-xl text-xs font-mono h-24 overflow-y-auto leading-relaxed" id="terminal-log">
+                            > System Ready. Waiting for order trigger...<br>
+                            > Odoo ERP API Listener active on Shopify, Blinkit, Nykaa endpoints.<br>
+                        </div>
+                    </div>
+
+                    <!-- Warehouse Stock Balance Breakdown -->
+                    <div class="bg-white rounded-2xl p-6 border border-sand shadow-sm">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-sm font-bold text-burgundy uppercase tracking-wider">Regional Fulfillment Hub Balances</h3>
+                            <span class="text-xs text-charcoal/50">Auto-balanced by Odoo MRP</span>
+                        </div>
+
+                        <div class="space-y-3">
+                            <div>
+                                <div class="flex justify-between text-xs mb-1">
+                                    <span class="font-medium text-charcoal">Mumbai Central Warehouse (West India)</span>
+                                    <span class="font-bold text-burgundy" id="wh-mumbai-val">52,400 units</span>
+                                </div>
+                                <div class="w-full bg-sand rounded-full h-2">
+                                    <div id="wh-mumbai-bar" class="bg-burgundy h-2 rounded-full transition-all duration-500" style="width: 75%"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="flex justify-between text-xs mb-1">
+                                    <span class="font-medium text-charcoal">Delhi NCR Quick-Hub (Blinkit / North)</span>
+                                    <span class="font-bold text-burgundy" id="wh-delhi-val">41,200 units</span>
+                                </div>
+                                <div class="w-full bg-sand rounded-full h-2">
+                                    <div id="wh-delhi-bar" class="bg-terracotta h-2 rounded-full transition-all duration-500" style="width: 60%"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="flex justify-between text-xs mb-1">
+                                    <span class="font-medium text-charcoal">Bengaluru 3PL Warehouse (South India)</span>
+                                    <span class="font-bold text-burgundy" id="wh-blr-val">34,150 units</span>
+                                </div>
+                                <div class="w-full bg-sand rounded-full h-2">
+                                    <div id="wh-blr-bar" class="bg-gold h-2 rounded-full transition-all duration-500" style="width: 50%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Live Order Activity Table -->
+            <div class="bg-white rounded-2xl p-6 border border-sand shadow-sm">
+                <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-2 mb-4">
+                    <h3 class="text-base font-bold text-burgundy serif-title">Live Channel Order Audit Feed</h3>
+                    <span class="text-xs bg-cream text-charcoal/70 px-3 py-1 rounded-full border border-sand">Updates Real-time</span>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-xs text-charcoal">
+                        <thead class="bg-cream text-burgundy font-semibold uppercase tracking-wider border-b border-sand">
+                            <tr>
+                                <th class="p-3">Order ID</th>
+                                <th class="p-3">Channel</th>
+                                <th class="p-3">Product SKU</th>
+                                <th class="p-3">Qty</th>
+                                <th class="p-3">Assigned Batch (FEFO)</th>
+                                <th class="p-3">Hub Assigned</th>
+                                <th class="p-3">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="orders-table-body" class="divide-y divide-sand/50">
+                            <!-- Pre-populated initial mock orders -->
+                            <tr class="hover:bg-cream/40 transition">
+                                <td class="p-3 font-mono font-bold text-burgundy">#IW-90412</td>
+                                <td class="p-3"><span class="bg-green-100 text-green-800 px-2 py-0.5 rounded font-medium">Shopify</span></td>
+                                <td class="p-3">AM Sunrise Serum (50ml)</td>
+                                <td class="p-3 font-semibold">2</td>
+                                <td class="p-3 font-mono text-terracotta font-semibold">LOT-AM-2026-08</td>
+                                <td class="p-3">Mumbai WH</td>
+                                <td class="p-3"><span class="bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full font-semibold">Dispatched</span></td>
+                            </tr>
+                            <tr class="hover:bg-cream/40 transition">
+                                <td class="p-3 font-mono font-bold text-burgundy">#BLK-88219</td>
+                                <td class="p-3"><span class="bg-yellow-100 text-yellow-800 px-2 py-0.5 rounded font-medium">Blinkit</span></td>
+                                <td class="p-3">Champi Hair Oil (100ml)</td>
+                                <td class="p-3 font-semibold">5</td>
+                                <td class="p-3 font-mono text-terracotta font-semibold">LOT-CH-2026-02</td>
+                                <td class="p-3">Delhi NCR Hub</td>
+                                <td class="p-3"><span class="bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full font-semibold">In Transit (10m)</span></td>
+                            </tr>
+                            <tr class="hover:bg-cream/40 transition">
+                                <td class="p-3 font-mono font-bold text-burgundy">#NYK-31092</td>
+                                <td class="p-3"><span class="bg-pink-100 text-pink-800 px-2 py-0.5 rounded font-medium">Nykaa</span></td>
+                                <td class="p-3">PM Sunset Restore Night Serum</td>
+                                <td class="p-3 font-semibold">1</td>
+                                <td class="p-3 font-mono text-terracotta font-semibold">LOT-PM-2026-04</td>
+                                <td class="p-3">Bengaluru 3PL</td>
+                                <td class="p-3"><span class="bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full font-semibold">Allocated</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB CONTENT 2: AYURVEDIC BATCH & FEFO MATRIX -->
+        <div id="tab-batch" class="tab-content hidden space-y-6">
+            <div class="bg-white rounded-2xl p-6 border border-sand shadow-sm">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
+                    <div>
+                        <h2 class="text-xl font-bold text-burgundy serif-title">Ayurvedic Botanical Batch & Expiry Matrix</h2>
+                        <p class="text-xs text-charcoal/70 mt-0.5">
+                            Odoo MRP enforces strict First-Expired, First-Out (FEFO) rules to preserve potent active botanical integrity.
+                        </p>
+                    </div>
+
+                    <div class="flex flex-wrap gap-2">
+                        <select id="batch-filter" onchange="filterBatches()" class="bg-cream border border-sand text-xs rounded-lg px-3 py-2 text-charcoal font-medium">
+                            <option value="ALL">All Active Batches</option>
+                            <option value="FEFO">Priority FEFO Dispatch Only</option>
+                            <option value="OPTIMAL">Optimal Shelf Life</option>
+                        </select>
+                        <button onclick="triggerFEFOAutoAllocate()" class="bg-burgundy hover:bg-burgundySoft text-cream px-3.5 py-2 rounded-lg text-xs font-semibold shadow-sm transition">
+                            Auto-Allocate Priority FEFO Batch
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Batches Table -->
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-xs text-charcoal">
+                        <thead class="bg-cream text-burgundy font-semibold uppercase tracking-wider border-b border-sand">
+                            <tr>
+                                <th class="p-3">Lot / Batch ID</th>
+                                <th class="p-3">Product Name</th>
+                                <th class="p-3">Key Ayurvedic Botanicals</th>
+                                <th class="p-3">Mfg Date</th>
+                                <th class="p-3">Expiry Date</th>
+                                <th class="p-3">Shelf Life Remaining</th>
+                                <th class="p-3">Stock Units</th>
+                                <th class="p-3">Odoo FEFO Priority Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="batch-table-body" class="divide-y divide-sand/50">
+                            <!-- Rows rendered dynamically or updated -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Ayurvedic Traceability Flow Box -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-cream/70 rounded-2xl p-5 border border-sand">
+                    <div class="w-8 h-8 rounded-full bg-terracotta text-white flex items-center justify-center font-bold mb-3 text-sm">1</div>
+                    <h4 class="font-bold text-burgundy text-sm mb-1">Raw Ingredient Genealogy</h4>
+                    <p class="text-xs text-charcoal/70 leading-relaxed">
+                        Every saffron batch from Kashmir or pure Bakuchiol is linked to vendor certificates of analysis in Odoo Quality.
+                    </p>
+                </div>
+                <div class="bg-cream/70 rounded-2xl p-5 border border-sand">
+                    <div class="w-8 h-8 rounded-full bg-burgundy text-cream flex items-center justify-center font-bold mb-3 text-sm">2</div>
+                    <h4 class="font-bold text-burgundy text-sm mb-1">Dynamic FEFO Allocation</h4>
+                    <p class="text-xs text-charcoal/70 leading-relaxed">
+                        When an order is placed on Shopify or Nykaa, Odoo pickers are directed to the lot expiring soonest to minimize waste.
+                    </p>
+                </div>
+                <div class="bg-cream/70 rounded-2xl p-5 border border-sand">
+                    <div class="w-8 h-8 rounded-full bg-gold text-burgundy flex items-center justify-center font-bold mb-3 text-sm">3</div>
+                    <h4 class="font-bold text-burgundy text-sm mb-1">60-Day Expiry Quarantine</h4>
+                    <p class="text-xs text-charcoal/70 leading-relaxed">
+                        Batches reaching 60 days before expiry are automatically quarantined from D2C fulfillment and marked for promotional bundling.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB CONTENT 3: ODOO ARCHITECTURE & MODULE FLOW EXPLORER -->
+        <div id="tab-architecture" class="tab-content hidden space-y-6">
+            <div class="bg-white rounded-2xl p-6 border border-sand shadow-sm">
+                <h2 class="text-xl font-bold text-burgundy serif-title mb-2">indē wild x Odoo Modular Architecture</h2>
+                <p class="text-xs text-charcoal/70 mb-6">
+                    Click any module block below to view how Odoo replaces fragmented SaaS tools with an integrated ecosystem.
+                </p>
+
+                <!-- Interactive Modules Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+                    <!-- Module 1 -->
+                    <div onclick="showModuleDetail('inventory')" id="mod-card-inventory" class="cursor-pointer p-5 rounded-xl border-2 border-terracotta bg-cream/40 hover:shadow-md transition">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="font-bold text-burgundy text-base">Odoo Inventory & Multi-Warehouse</span>
+                            <span class="w-2 h-2 rounded-full bg-terracotta"></span>
+                        </div>
+                        <p class="text-xs text-charcoal/70">FEFO Lot Tracking, Regional Stock Balancing, Multi-Location 3PL Sync.</p>
+                    </div>
+
+                    <!-- Module 2 -->
+                    <div onclick="showModuleDetail('connectors')" id="mod-card-connectors" class="cursor-pointer p-5 rounded-xl border-2 border-transparent bg-cream/20 hover:border-sand hover:shadow-md transition">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="font-bold text-burgundy text-base">Omnichannel Connectors</span>
+                            <span class="w-2 h-2 rounded-full bg-gold"></span>
+                        </div>
+                        <p class="text-xs text-charcoal/70">Shopify D2C, Nykaa, Blinkit API, Amazon Global Store native sync.</p>
+                    </div>
+
+                    <!-- Module 3 -->
+                    <div onclick="showModuleDetail('mrp')" id="mod-card-mrp" class="cursor-pointer p-5 rounded-xl border-2 border-transparent bg-cream/20 hover:border-sand hover:shadow-md transition">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="font-bold text-burgundy text-base">Odoo MRP & Formulation QC</span>
+                            <span class="w-2 h-2 rounded-full bg-burgundy"></span>
+                        </div>
+                        <p class="text-xs text-charcoal/70">Multi-level BOMs for botanical extracts, active stability testing & packaging BOM.</p>
+                    </div>
+
+                    <!-- Module 4 -->
+                    <div onclick="showModuleDetail('purchase')" id="mod-card-purchase" class="cursor-pointer p-5 rounded-xl border-2 border-transparent bg-cream/20 hover:border-sand hover:shadow-md transition">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="font-bold text-burgundy text-base">Odoo Automated Purchase</span>
+                            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                        </div>
+                        <p class="text-xs text-charcoal/70">Reorder points for custom glass bottles & rare raw herbs based on sales velocity.</p>
+                    </div>
+
+                    <!-- Module 5 -->
+                    <div onclick="showModuleDetail('accounting')" id="mod-card-accounting" class="cursor-pointer p-5 rounded-xl border-2 border-transparent bg-cream/20 hover:border-sand hover:shadow-md transition">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="font-bold text-burgundy text-base">Multi-Currency Accounting</span>
+                            <span class="w-2 h-2 rounded-full bg-blue-500"></span>
+                        </div>
+                        <p class="text-xs text-charcoal/70">Unified financial ledger for INR, USD, GBP across global markets.</p>
+                    </div>
+
+                    <!-- Module 6 -->
+                    <div onclick="showModuleDetail('bi')" id="mod-card-bi" class="cursor-pointer p-5 rounded-xl border-2 border-transparent bg-cream/20 hover:border-sand hover:shadow-md transition">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="font-bold text-burgundy text-base">Odoo BI & Executive Dashboards</span>
+                            <span class="w-2 h-2 rounded-full bg-purple-500"></span>
+                        </div>
+                        <p class="text-xs text-charcoal/70">Real-time SKU contribution margin, channel profitability, customer LTV analysis.</p>
+                    </div>
+                </div>
+
+                <!-- Expanded Module Detail View Container -->
+                <div id="module-detail-panel" class="bg-sand/40 rounded-xl p-6 border border-sand">
+                    <!-- Dynamic details injected via JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB CONTENT 4: EXECUTIVE ROI & EFFICIENCY CALCULATOR -->
+        <div id="tab-roi" class="tab-content hidden space-y-6">
+            <div class="bg-white rounded-2xl p-6 border border-sand shadow-sm">
+                <div class="max-w-3xl mb-6">
+                    <h2 class="text-xl font-bold text-burgundy serif-title">Executive Odoo ROI & Savings Calculator</h2>
+                    <p class="text-xs text-charcoal/70 mt-1">
+                        Estimate the tangible financial impact of unifying indē wild’s supply chain on Odoo ERP v20.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                    <!-- Interactive Sliders -->
+                    <div class="space-y-6 bg-cream/50 p-6 rounded-xl border border-sand">
+                        <div>
+                            <div class="flex justify-between text-xs font-semibold text-charcoal mb-2">
+                                <span>Monthly Global Orders (All Channels)</span>
+                                <span class="text-terracotta font-bold text-sm" id="slider-orders-val">100,000</span>
+                            </div>
+                            <input type="range" id="slider-orders" min="20000" max="300000" step="5000" value="100000" oninput="calculateROI()" class="w-full accent-terracotta cursor-pointer">
+                            <div class="flex justify-between text-[10px] text-charcoal/50 mt-1">
+                                <span>20k orders</span>
+                                <span>300k orders</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between text-xs font-semibold text-charcoal mb-2">
+                                <span>Target Stockout & Waste Reduction (%)</span>
+                                <span class="text-terracotta font-bold text-sm" id="slider-waste-val">25%</span>
+                            </div>
+                            <input type="range" id="slider-waste" min="10" max="50" step="5" value="25" oninput="calculateROI()" class="w-full accent-terracotta cursor-pointer">
+                            <div class="flex justify-between text-[10px] text-charcoal/50 mt-1">
+                                <span>10%</span>
+                                <span>50%</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between text-xs font-semibold text-charcoal mb-2">
+                                <span>Hours Saved / Week on Manual Inventory Sync</span>
+                                <span class="text-terracotta font-bold text-sm" id="slider-hours-val">120 hrs</span>
+                            </div>
+                            <input type="range" id="slider-hours" min="20" max="300" step="10" value="120" oninput="calculateROI()" class="w-full accent-terracotta cursor-pointer">
+                            <div class="flex justify-between text-[10px] text-charcoal/50 mt-1">
+                                <span>20 hrs</span>
+                                <span>300 hrs</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Projected Impact Results Card -->
+                    <div class="bg-burgundy text-cream p-6 rounded-2xl shadow-lg border border-gold/30 flex flex-col justify-between space-y-6">
+                        <div>
+                            <span class="text-gold text-xs font-bold uppercase tracking-widest block mb-2">Projected Annual Financial Impact</span>
+                            <div class="text-3xl md:text-4xl font-extrabold text-white font-mono" id="roi-annual-savings">
+                                ₹ 84,50,000 / yr
+                            </div>
+                            <p class="text-xs text-cream/70 mt-1">Estimated direct savings in labor, reduced wastage & captured stockout sales.</p>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4 border-t border-cream/20 pt-4">
+                            <div>
+                                <span class="text-[11px] text-cream/60 block">Shelf-Life Waste Saved</span>
+                                <span class="text-lg font-bold text-gold" id="roi-waste-savings">₹ 32,00,000</span>
+                            </div>
+                            <div>
+                                <span class="text-[11px] text-cream/60 block">Man-Hours Efficiency Gain</span>
+                                <span class="text-lg font-bold text-gold" id="roi-hours-savings">3,120 hrs/yr</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-burgundySoft/80 p-3.5 rounded-xl border border-gold/20 text-xs text-cream/90 flex items-center space-x-3">
+                            <svg class="w-5 h-5 text-gold flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            <span>Payback Period for Odoo v20 Implementation: <b>~ 3.5 Months</b></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-burgundy text-cream/70 text-xs py-4 border-t border-gold/20 mt-8">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-2">
+            <div>
+                <b>indē wild x Odoo ERP v20 Prototype Portal</b> • Tailored Strategic Architecture
+            </div>
+            <div class="text-[11px] text-cream/50">
+                Designed for Omnichannel Scaling (India • US • UK)
+            </div>
+        </div>
+    </footer>
+
+    <!-- PITCH SUMMARY MODAL -->
+    <div id="share-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-2xl w-full p-6 sm:p-8 border border-sand shadow-2xl relative">
+            <button onclick="closeShareModal()" class="absolute top-4 right-4 text-charcoal/50 hover:text-charcoal p-1">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+
+            <div class="flex items-center space-x-2 text-terracotta text-xs font-bold uppercase tracking-widest mb-1">
+                <span>Executive Summary</span>
+            </div>
+            <h3 class="text-2xl font-bold text-burgundy serif-title mb-3">Why Odoo v20 is Built for indē wild</h3>
+
+            <div class="space-y-3 text-xs text-charcoal/80 leading-relaxed mb-6">
+                <p>
+                    <b>1. Native Omnichannel Centralization:</b> Eliminates stock fragmentation between D2C (Shopify), Quick-Commerce (Blinkit 10-minute delivery), and beauty retail (Nykaa).
+                </p>
+                <p>
+                    <b>2. FEFO Ayurvedic Quality Guardrails:</b> Dynamic lot tracking prevents active ingredient degradation and guarantees zero near-expiry dispatches.
+                </p>
+                <p>
+                    <b>3. Multi-Currency Global Operations:</b> Seamless financial consolidation across INR, USD, and GBP for international expansion.
+                </p>
+            </div>
+
+            <div class="bg-sand/50 p-3.5 rounded-xl border border-sand mb-6 flex justify-between items-center text-xs">
+                <span class="text-charcoal font-medium">Portal URL Share Link:</span>
+                <span class="font-mono text-terracotta font-semibold">https://indewild.odoo-v20-prototype.internal</span>
+            </div>
+
+            <div class="flex justify-end space-x-3">
+                <button onclick="copyModalLink()" class="bg-sand hover:bg-sand/80 text-burgundy font-semibold px-4 py-2 rounded-xl text-xs transition">
+                    Copy Pitch Note
+                </button>
+                <button onclick="closeShareModal()" class="bg-burgundy hover:bg-burgundySoft text-cream font-semibold px-5 py-2 rounded-xl text-xs transition">
+                    Close Window
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT APP LOGIC -->
+    <script>
+        // --- REAL-TIME CLOCK ---
+        function updateClock() {
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString('en-US', { timeZone: 'Asia/Kolkata', hour12: false }) + ' IST';
+            document.getElementById('live-clock').innerText = timeStr;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // --- TAB SWITCHER ---
+        function switchTab(tabId) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            // Reset tab button styles
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.className = "tab-btn px-4 py-2.5 rounded-t-xl font-medium text-sm transition-all flex items-center space-x-2 whitespace-nowrap bg-white/60 text-charcoal/70 hover:bg-white border-b-2 border-transparent";
+            });
+
+            // Show selected tab content
+            document.getElementById('tab-' + tabId).classList.remove('hidden');
+
+            // Highlight active button
+            const activeBtn = document.getElementById('tab-btn-' + tabId);
+            activeBtn.className = "tab-btn px-4 py-2.5 rounded-t-xl font-medium text-sm transition-all flex items-center space-x-2 whitespace-nowrap bg-burgundy text-cream border-b-2 border-terracotta shadow-sm";
+        }
+
+        // --- TAB 1: ORDER ROUTING SIMULATOR ---
+        let orderCounter = 90413;
+        let globalStock = 148250;
+        let dailyOrders = 3890;
+
+        function runOrderSimulation() {
+            const channel = document.getElementById('sim-channel').value;
+            const product = document.getElementById('sim-product').value;
+            const qty = parseInt(document.getElementById('sim-qty').value) || 1;
+            const region = document.getElementById('sim-region').value;
+
+            // Step animations
+            const steps = [1, 2, 3, 4, 5];
+            const logEl = document.getElementById('terminal-log');
+
+            logEl.innerHTML += `<br>[${new Date().toLocaleTimeString()}] > INCOMING ORDER DETECTED via <b>${channel}</b>...`;
+            logEl.scrollTop = logEl.scrollHeight;
+
+            steps.forEach((step, idx) => {
+                setTimeout(() => {
+                    // Highlight step
+                    steps.forEach(s => {
+                        const stepEl = document.getElementById('step-' + s);
+                        if (s === step) {
+                            stepEl.classList.add('flow-step-active');
+                        } else {
+                            stepEl.classList.remove('flow-step-active');
+                        }
+                    });
+
+                    if (step === 2) {
+                        logEl.innerHTML += `<br> > [Odoo Inventory] Checking multi-warehouse stock for ${product}...`;
+                    } else if (step === 3) {
+                        logEl.innerHTML += `<br> > [Odoo FEFO Engine] Reserved Lot #LOT-AM-2026-08 (Expiring in 210 days).`;
+                    } else if (step === 4) {
+                        logEl.innerHTML += `<br> > [3PL Connector] Generated AWB & Routing order to ${region}.`;
+                    } else if (step === 5) {
+                        logEl.innerHTML += `<br> > <span class="text-emerald-300">SUCCESS: Order #${orderCounter} processed in 1.2s.</span>`;
+                        logEl.scrollTop = logEl.scrollHeight;
+
+                        // Insert into table
+                        insertOrderRow(orderCounter, channel, product, qty, region);
+                        orderCounter++;
+
+                        // Update global counters
+                        globalStock -= qty;
+                        dailyOrders++;
+                        document.getElementById('metric-inventory').innerText = globalStock.toLocaleString();
+                        document.getElementById('metric-orders').innerText = dailyOrders.toLocaleString();
+                    }
+                    logEl.scrollTop = logEl.scrollHeight;
+                }, idx * 600);
+            });
+        }
+
+        function insertOrderRow(id, channel, product, qty, region) {
+            const tbody = document.getElementById('orders-table-body');
+            const tr = document.createElement('tr');
+            tr.className = "hover:bg-cream/40 transition bg-emerald-50/50";
+
+            let channelBadge = '<span class="bg-gray-100 text-gray-800 px-2 py-0.5 rounded font-medium">' + channel + '</span>';
+            if (channel.includes('Shopify')) channelBadge = '<span class="bg-green-100 text-green-800 px-2 py-0.5 rounded font-medium">Shopify</span>';
+            if (channel.includes('Blinkit')) channelBadge = '<span class="bg-yellow-100 text-yellow-800 px-2 py-0.5 rounded font-medium">Blinkit</span>';
+            if (channel.includes('Nykaa')) channelBadge = '<span class="bg-pink-100 text-pink-800 px-2 py-0.5 rounded font-medium">Nykaa</span>';
+
+            tr.innerHTML = `
+                <td class="p-3 font-mono font-bold text-burgundy">#IW-${id}</td>
+                <td class="p-3">${channelBadge}</td>
+                <td class="p-3">${product}</td>
+                <td class="p-3 font-semibold">${qty}</td>
+                <td class="p-3 font-mono text-terracotta font-semibold">LOT-AM-2026-08</td>
+                <td class="p-3">${region}</td>
+                <td class="p-3"><span class="bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full font-semibold">Processed</span></td>
+            `;
+
+            tbody.insertBefore(tr, tbody.firstChild);
+        }
+
+        // --- TAB 2: BATCH & FEFO DATA ---
+        const activeBatchesData = [
+            { id: "LOT-AM-2026-08", product: "AM Sunrise Serum (50ml)", botanicals: "Saffron, Turmeric, Vitamin C", mfg: "2026-01-10", exp: "2026-09-10", daysLeft: 142, units: 12400, priority: "FEFO Priority" },
+            { id: "LOT-CH-2026-02", product: "Champi Hair Oil (100ml)", botanicals: "Amla, Bhringraj, Brahmi, Sesame", mfg: "2025-11-15", exp: "2026-06-15", daysLeft: 55, units: 3200, priority: "Near Expiry Quarantine" },
+            { id: "LOT-PM-2026-04", product: "PM Sunset Restore Night Serum", botanicals: "Bakuchiol, Ashwagandha, Lotus", mfg: "2026-02-01", exp: "2026-11-01", daysLeft: 194, units: 18900, priority: "Optimal" },
+            { id: "LOT-LP-2026-11", product: "Dewy Lip Treatment (12ml)", botanicals: "Lotus Extract, Kokum Butter", mfg: "2026-03-05", exp: "2027-03-05", daysLeft: 320, units: 25100, priority: "Optimal" },
+            { id: "LOT-CH-2026-09", product: "Champi Hair Oil (100ml)", botanicals: "Amla, Bhringraj, Brahmi, Sesame", mfg: "2026-02-20", exp: "2026-12-20", daysLeft: 243, units: 15400, priority: "Optimal" }
+        ];
+
+        function renderBatches(data) {
+            const tbody = document.getElementById('batch-table-body');
+            tbody.innerHTML = '';
+
+            data.forEach(batch => {
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-cream/40 transition";
+
+                let tagClass = "bg-emerald-100 text-emerald-800";
+                if (batch.priority.includes("FEFO")) tagClass = "bg-amber-100 text-amber-800 font-bold";
+                if (batch.priority.includes("Quarantine")) tagClass = "bg-rose-100 text-rose-800 font-bold";
+
+                tr.innerHTML = `
+                    <td class="p-3 font-mono font-bold text-burgundy">${batch.id}</td>
+                    <td class="p-3 font-medium">${batch.product}</td>
+                    <td class="p-3 text-charcoal/70">${batch.botanicals}</td>
+                    <td class="p-3 text-charcoal/60 font-mono">${batch.mfg}</td>
+                    <td class="p-3 text-charcoal/60 font-mono">${batch.exp}</td>
+                    <td class="p-3 font-bold ${batch.daysLeft < 60 ? 'text-rose-600' : 'text-charcoal'}">${batch.daysLeft} Days</td>
+                    <td class="p-3 font-mono">${batch.units.toLocaleString()}</td>
+                    <td class="p-3"><span class="${tagClass} px-2 py-1 rounded-full text-[10px]">${batch.priority}</span></td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function filterBatches() {
+            const val = document.getElementById('batch-filter').value;
+            if (val === 'ALL') renderBatches(activeBatchesData);
+            else if (val === 'FEFO') {
+                renderBatches(activeBatchesData.filter(b => b.priority.includes('FEFO') || b.priority.includes('Quarantine')));
+            } else {
+                renderBatches(activeBatchesData.filter(b => b.priority.includes('Optimal')));
+            }
+        }
+
+        function triggerFEFOAutoAllocate() {
+            alert("Odoo Engine Triggered: Priority batch #LOT-AM-2026-08 auto-assigned to next 1,500 outgoing Blinkit & Shopify orders!");
+        }
+
+        // --- TAB 3: ODOO MODULE EXPLORER ---
+        const moduleDetails = {
+            inventory: {
+                title: "Odoo Inventory & Multi-Warehouse Control",
+                desc: "Replaces siloed warehouse tools with real-time visibility across Mumbai, Delhi NCR, Bengaluru, and international 3PL hubs.",
+                points: [
+                    "Automated FEFO pick routing based on lot expiry dates.",
+                    "Barcode scanning app integration for 99.8% picker accuracy.",
+                    "Safety stock triggers that balance inventory between Quick-Commerce hubs and D2C fulfillment."
+                ]
+            },
+            connectors: {
+                title: "Omnichannel Connector Suite (API Native)",
+                desc: "Bi-directional real-time sync with Shopify, Nykaa, Blinkit, and Amazon.",
+                points: [
+                    "Instant order capture preventing double-selling during viral product drops.",
+                    "Automated sync of shipping tracking numbers back to customer channels.",
+                    "Centralized inventory reservation when flash sales occur on Blinkit."
+                ]
+            },
+            mrp: {
+                title: "Odoo MRP & Formulation Quality Control",
+                desc: "Tailored specifically for indē wild’s Ayurvedicistry formulations.",
+                points: [
+                    "Multi-level Bills of Materials (BOM) linking active botanicals (Bakuchiol, Saffron) to finished jars.",
+                    "Integrated quality checks for specific gravity, fragrance, and stability prior to batch clearance.",
+                    "Full raw material traceability back to individual supplier farms."
+                ]
+            },
+            purchase: {
+                title: "Automated Reordering & Supplier Procurement",
+                desc: "Prevents supply chain bottlenecks for long-lead custom packaging.",
+                points: [
+                    "Dynamic reorder points calculated using sales velocity from Shopify and marketplaces.",
+                    "Automated Purchase Orders (POs) generated for glass bottles and droppers.",
+                    "Vendor lead time tracking and performance scorecards."
+                ]
+            },
+            accounting: {
+                title: "Multi-Currency Accounting & Financial Ledger",
+                desc: "Unifies financial operations for indē wild's global footprints (India, US, UK).",
+                points: [
+                    "Automated currency conversions (INR, USD, GBP) at point of sale.",
+                    "Channel-wise contribution margin analysis (Nykaa fees vs Shopify margins).",
+                    "Seamless reconciliation with payment gateways (Stripe, Razorpay)."
+                ]
+            },
+            bi: {
+                title: "Executive BI & Profitability Dashboards",
+                desc: "Real-time strategic decision support for brand leadership.",
+                points: [
+                    "Live SKU velocity tracking across all geographic markets.",
+                    "Customer LTV and repeat purchase cohort analytics.",
+                    "Real-time holding cost and inventory turn calculations."
+                ]
+            }
+        };
+
+        function showModuleDetail(modKey) {
+            // Update active state styling on cards
+            Object.keys(moduleDetails).forEach(k => {
+                const card = document.getElementById('mod-card-' + k);
+                if (k === modKey) {
+                    card.classList.add('border-terracotta', 'bg-cream/40');
+                    card.classList.remove('border-transparent', 'bg-cream/20');
+                } else {
+                    card.classList.remove('border-terracotta', 'bg-cream/40');
+                    card.classList.add('border-transparent', 'bg-cream/20');
+                }
+            });
+
+            const data = moduleDetails[modKey];
+            const panel = document.getElementById('module-detail-panel');
+            panel.innerHTML = `
+                <div class="space-y-3">
+                    <span class="text-terracotta text-xs font-bold uppercase tracking-wider">Module Specification</span>
+                    <h3 class="text-lg font-bold text-burgundy serif-title">${data.title}</h3>
+                    <p class="text-xs text-charcoal/80 leading-relaxed">${data.desc}</p>
+                    <div class="border-t border-sand pt-3 mt-3">
+                        <span class="text-xs font-bold text-burgundy block mb-2">Key Strategic Advantages for indē wild:</span>
+                        <ul class="list-disc list-inside text-xs text-charcoal/70 space-y-1">
+                            ${data.points.map(p => `<li>${p}</li>`).join('')}
+                        </ul>
+                    </div>
+                </div>
+            `;
+        }
+
+        // --- TAB 4: ROI CALCULATOR ---
+        function calculateROI() {
+            const orders = parseInt(document.getElementById('slider-orders').value);
+            const wastePct = parseInt(document.getElementById('slider-waste').value);
+            const hours = parseInt(document.getElementById('slider-hours').value);
+
+            document.getElementById('slider-orders-val').innerText = orders.toLocaleString();
+            document.getElementById('slider-waste-val').innerText = wastePct + '%';
+            document.getElementById('slider-hours-val').innerText = hours + ' hrs';
+
+            // Financial estimation formula
+            const baseOrderVal = 1200; // Avg basket INR
+            const annualRevenue = orders * baseOrderVal * 12;
+            const wasteSavings = Math.round(annualRevenue * (wastePct / 100) * 0.02);
+            const hoursSavings = hours * 52 * 500; // 500 INR/hr man-hour value
+            const totalAnnualSavings = wasteSavings + hoursSavings;
+
+            document.getElementById('roi-annual-savings').innerText = '₹ ' + totalAnnualSavings.toLocaleString() + ' / yr';
+            document.getElementById('roi-waste-savings').innerText = '₹ ' + wasteSavings.toLocaleString();
+            document.getElementById('roi-hours-savings').innerText = (hours * 52).toLocaleString() + ' hrs/yr';
+        }
+
+        // --- MODAL CONTROLS ---
+        function openShareModal() {
+            document.getElementById('share-modal').classList.remove('hidden');
+        }
+
+        function closeShareModal() {
+            document.getElementById('share-modal').classList.add('hidden');
+        }
+
+        function copyModalLink() {
+            const pitchNote = "indē wild x Odoo ERP v20 Strategic Roadmap Summary:\n- Centralized Shopify, Blinkit, and Nykaa order routing.\n- Dynamic Ayurvedic FEFO batch tracking.\n- Projected payback period: 3.5 Months.";
+            
+            // Clipboard fallback
+            const dummy = document.createElement("textarea");
+            document.body.appendChild(dummy);
+            dummy.value = pitchNote;
+            dummy.select();
+            document.execCommand("copy");
+            document.body.removeChild(dummy);
+
+            alert("Pitch Summary copied to clipboard!");
+        }
+
+        // INITIAL RENDER ON LOAD
+        window.onload = function() {
+            renderBatches(activeBatchesData);
+            showModuleDetail('inventory');
+            calculateROI();
+        }
+    </script>
+</body>
+</html>
